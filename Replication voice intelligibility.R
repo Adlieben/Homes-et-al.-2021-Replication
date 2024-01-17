@@ -151,7 +151,7 @@ get_anova_table(res.aov)
 # familiar, least familiar, unfamiliar) and task (speech intelligibility, voice recognition) using the
 # z scores provided
 
-## computing the results
+## Computing the results
 res.aov <- anova_test(
   data = data2_long, dv = Score, wid = ID,
   within = c(fam, Task)
@@ -163,7 +163,21 @@ get_anova_table(res.aov)
 ## --> This is also in the table: YES
 
 # Finding 3: Follow-up one-way ANOVA with factor familiarity (most familiar, moderately familiar, least 
-# familiar, unfamiliar) using task as a dependent variable
+# familiar, unfamiliar) using task as a dependent variable¨
+## The method for conducting these one-way ANOVAs using the z-scores is not made very clear so here is
+## is just an idea of how they could have been performed
+# Subsetting the long data for both tasks
+data_intell <- data2_long %>% filter(Task == 'Intell')
+data_reco <- data2_long %>% filter(Task == 'Reco')
 
-aov(Task ~ fam, data = data2_long)
+# Conducting two one-way ANOVAs, one for each task
+res.aov <- aov(Score ~ fam, data = data_intell)
+summary(res.aov)
+res.aov <- aov(Score ~ fam, data = data_reco)
+summary(res.aov)
 
+## Comparing with the results that they have: (Left side is in paper, arrow shows what has been found here)
+## Significant effect of familiarity on speech-intelligibility-benefit scores, F(2, 98) = 4.27, p = .017
+## --> Very different results here with F(2, 148) = 2.07, p = 0.129: NO
+## Non-significant effect of familiarity on explicit-recognition scores, F(2, 98) = 0.15, p = .87
+## --> Very different results here with F(2, 147) = 0.06, p = 0.94: NO¨
