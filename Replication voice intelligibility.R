@@ -1,12 +1,15 @@
 # YES means the finding was replicated, NO means it was not
 
 # Load the file SpeechIntelligibility_PercentCorrect_(n=50) that I renames in the folder
-#Libraries
-#install.packages("readxl")
+# Libraries
+# install.packages("readxl")
+# install.packages('MOTE') 
 library(readxl)
 library(tidyverse)
 library(ggpubr)
 library(rstatix)
+library(MOTE) # This package is mentioned in the study as being used for effect 
+# sizes and confidence intervals
 
 # Files
 data <- read_excel("Dataspeechpercent.xls") # Corresponds to the percentage of successes at voice intelligibility task
@@ -139,13 +142,25 @@ get_anova_table(res.aov)
 ## Comparing with the results that they have: (Left side is in paper, arrow shows what has been found here)
 ## Effect of group, F(1, 48) = 0.20, p = .66, --> this is also in the table: YES
 ## Group × TMR: F(1, 48) = 1.19, p = .28 --> this is also in the table: YES
-## Group × Familiarity: F(3, 144) = 0.17, p = .91 --> lower p-value of 0.89 for some reason: NO
+## Group × Familiarity: F(3, 144) = 0.17, p = .91 --> lower p-value of 0.89, due to wrong df: NO
 ## Group × Familiarity × TMR: F(3, 144) = 0.15, p = .93 --> this is also in the table: YES
 ## Interaction between TMR and familiarity, F(3, 144) = 7.47, p < .001 --> this is also in the table: YES
 ## Main effect of familiarity was significant, F(2.6, 125.4) = 10.49, p< .001 --> Yes, p-value 
 ## is tiny and in table: YES
 ## Intelligibility was significantly better at +3 dB than at −6 dB TMR, F(1, 48) = 140.96, p < .001 --> 
 ## Yes, p-value is tiny and in table: YES
+
+## The MOTE package is then used to calculate effect sizes and confidence intervals
+## The package documentation sggests omega.F() is the function to use here, although this is not made
+## Clear in the study
+omega.F(1, 48, 0.202, 50, a = 0.05)$estimate # Group effect
+omega.F(1, 48, 1.189, 50, a = 0.05)$estimate # Group x TMR effect
+omega.F(3, 144, 0.174, 50, a = 0.05)$estimate # Group x Familiarity effect (the values in the text were used, although they have not been replicated)
+
+## ωp2 = −.02, 95% CI = [.00, 1.00] for group effect --> same values: YES
+## ωp2 < .01, 95% CI = [.00, .09] for group x TMR effect --> similar values due to rounding: YES
+## ωp2 = −.01, 95% CI = [.00, 1.00] for group x familiarity effect --> different effect size: NO
+
 
 # Finding 2: Two-way within-subjects ANOVA with the factors familiarity (most familiar, moderately 
 # familiar, least familiar, unfamiliar) and task (speech intelligibility, voice recognition) using the
