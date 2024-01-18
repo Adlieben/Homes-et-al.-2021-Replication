@@ -12,8 +12,8 @@ library(MOTE) # This package is mentioned in the study as being used for effect
 # sizes and confidence intervals
 
 # Files
-data <- read_excel("Dataspeechpercent.xls") # Corresponds to the percentage of successes at voice intelligibility task
-data2 <- read_excel("z_scores.xlsx") # Corresponds to the z scores computed from the results on each tasks
+data <- read_excel("data/Dataspeechpercent.xls") # Corresponds to the percentage of successes at voice intelligibility task
+data2 <- read_excel("data/z_scores.xlsx") # Corresponds to the z scores computed from the results on each tasks
 
 # The z scores have apparently been computed from the d′ from the explicit-recognition task (Fig. 2b) and the speech-intelligibility-benefit scores (Fig. 2c) 
 # for each of the three familiar voices. Since there is no formula given to calculate them, they cannot
@@ -151,15 +151,20 @@ get_anova_table(res.aov)
 ## Yes, p-value is tiny and in table: YES
 
 ## The MOTE package is then used to calculate effect sizes and confidence intervals
-## The package documentation sggests omega.F() is the function to use here, although this is not made
-## Clear in the study
+## The package documentation suggests omega.F() is the function to use here, although this is not made
+## clear in the study
 omega.F(1, 48, 0.202, 50, a = 0.05)$estimate # Group effect
 omega.F(1, 48, 1.189, 50, a = 0.05)$estimate # Group x TMR effect
 omega.F(3, 144, 0.174, 50, a = 0.05)$estimate # Group x Familiarity effect (the values in the text were used, although they have not been replicated)
+omega.F(3, 144, 0.154, 50, a = 0.05)$estimate # Group x Familiarity x TMR effect
+omega.F(3, 144, 7.473, 50, a = 0.05)$estimate # TMR x Familiarity effect
 
 ## ωp2 = −.02, 95% CI = [.00, 1.00] for group effect --> same values: YES
 ## ωp2 < .01, 95% CI = [.00, .09] for group x TMR effect --> similar values due to rounding: YES
 ## ωp2 = −.01, 95% CI = [.00, 1.00] for group x familiarity effect --> different effect size: NO
+## ωp2 = .00, 95% CI = [.00, 1.00] for group x familiarity x TMR effect --> different effect size: NO
+## ωp2 = .03, 95% CI = [.00, .10] for TMR x Familiarity effect --> different effect size and confidence interval: NO
+
 
 
 # Finding 2: Two-way within-subjects ANOVA with the factors familiarity (most familiar, moderately 

@@ -10,7 +10,7 @@ install.packages("rstatix")
 
 ## Training task
 
-training_df <- read_excel("Training_PercentCorrect_(n=50).xls")
+training_df <- read_excel("data/Training_PercentCorrect_(n=50).xls")
 # create id column 
 training_df <- rowid_to_column(training_df, "ID")
 # there is a column missing in the original dataframe, assuming that it is also structered as in previous files, we add it directly
@@ -34,7 +34,7 @@ ggplot(training_df_long, aes(x = factor(familiarity_recoded), y = perc)) +
         labs(title = "Training", y="Percentage Correct", x="Talker Familiarity")
 
 ## Explicit-Recongition Test
-excplicit_rec_df <- read_excel("ExplicitRecognition_dPrime_(n=50) (1).xls")
+excplicit_rec_df <- read_excel("data/ExplicitRecognition_dPrime_(n=50) (1).xls")
 # create id column 
 excplicit_rec_df <- rowid_to_column(excplicit_rec_df, "ID")
 excplicit_rec_df$QuietBabble <- as.factor(excplicit_rec_df$QuietBabble)
