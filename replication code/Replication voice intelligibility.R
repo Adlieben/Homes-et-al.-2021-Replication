@@ -269,7 +269,7 @@ t.test(training_df$fam2, training_df$fam3, paired = TRUE)
 # FINDING 2: EXPLICIT RECOGNITION -----------------------------------------
 # Two-way mixed ANOVA with the DVs: training group (quiet, babble) and 
 # familiarity (most familiar, moderately familiar, least familiar)
-# IV: d′ values in the explicit recognition  test.
+# IV: d′ values in the explicit recognition test.
 
 ## Original results:
 # was no effect of training group, F(1, 48) < 0.01, p = .95, ωp2 = −.02, 95% CI = [.00, 1.00], and no interaction, 
