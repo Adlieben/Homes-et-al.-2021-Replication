@@ -11,7 +11,7 @@ Once this is done, the files of this project can be accessed in R studio and wil
 
 ## Poster
 
-A presentation of some of the findings from this replication can be found in the poster included in this repository. The poster is provided in pdf format.
+A presentation of some of the findings from this replication can be found in the poster included in this repository. The poster is provided in pdf format, in the file Replication_study.pdf.
 
 ## Data
 
